@@ -14,7 +14,7 @@ import 'dart:math';
 void main() {
   // 1. Create a List<String> of student names: ["Alice", "Bob", "Charlie", "Diana", "Eve"]
   // TODO: Create the student names list
-  List<String> studentNames = [];
+  List<String> studentNames = ["Ishrak","Faud","Jubair","Mirza","Al"];
 
   // 2. Create a Map<String, int> to store student scores
   // TODO: Create the scores map
@@ -22,7 +22,10 @@ void main() {
 
   // 3. Use a for loop to assign random scores (60-100) to each student
   // TODO: Implement the for loop to assign random scores
-
+  Random random = Random();
+  for (String student in studentNames) {
+    studentScores[student] = 60 + random.nextInt(41); // 60 to 100
+  }
   // 4. Find and display:
   //    - The student with the highest score
   //    - The student with the lowest score
@@ -33,9 +36,25 @@ void main() {
   String lowestStudent = "";
   int lowestScore = 100;
   double averageScore = 0.0;
+  int total = 0;
 
   // TODO: Add your logic here
 
+  for (String student in studentNames) {
+    int score = studentScores[student] ?? 0;
+    total += score;
+
+    if (score > highestScore) {
+      highestScore = score;
+      highestStudent = student;
+    }
+
+    if (score < lowestScore) {
+      lowestScore = score;
+      lowestStudent = student;
+    }
+  }
+    averageScore = total / studentNames.length;
   print("Student Scores: $studentScores");
   print("Highest Score: $highestStudent with $highestScore");
   print("Lowest Score: $lowestStudent with $lowestScore");
@@ -51,8 +70,20 @@ void main() {
     int score = studentScores[student] ?? 0;
     String category = "";
 
-    // TODO: Add your switch statement here
-
+    switch (score ~/ 10) {  // integer division to get the tens digit
+      case 10:
+      case 9:
+        category = "Excellent";
+        break;
+      case 8:
+        category = "Good";
+        break;
+      case 7:
+        category = "Average";
+        break;
+      default:
+        category = "Needs Improvement";
+    }
     print("$student: $score ($category)");
   }
 }
